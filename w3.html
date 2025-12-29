@@ -1,0 +1,621 @@
+<meta name='viewport' content='width=device-width, initial-scale=1'/><!DOCTYPE html>
+
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Wedding Schedule</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600&family=Montserrat:wght@300;400;500&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+    body {
+        font-family: 'Montserrat', sans-serif;
+        background: linear-gradient(135deg, #fdfcfb 0%, #e2d1c3 100%);
+        min-height: 100vh;
+        padding: 30px 15px;
+    }
+    
+    .container {
+        max-width: 700px;
+        margin: 0 auto;
+        background: white;
+        border-radius: 16px;
+        box-shadow: 0 20px 60px rgba(0,0,0,0.1);
+        overflow: hidden;
+    }
+    
+    .header {
+        background: linear-gradient(135deg, #2c3e50 0%, #34495e 100%);
+        color: white;
+        padding: 40px 30px;
+        text-align: center;
+    }
+    
+    .header h1 {
+        font-family: 'Cormorant Garamond', serif;
+        font-size: 2.4rem;
+        font-weight: 400;
+        letter-spacing: 2px;
+        margin-bottom: 8px;
+    }
+    
+    .header .date {
+        font-size: 1rem;
+        font-weight: 300;
+        letter-spacing: 3px;
+        opacity: 0.9;
+    }
+    
+    .content {
+        padding: 30px;
+    }
+    
+    .arrival-options {
+        background: #f8f9fa;
+        border-radius: 10px;
+        padding: 20px;
+        margin-bottom: 30px;
+        border-left: 4px solid #c9a86c;
+    }
+    
+    .arrival-options h2 {
+        font-family: 'Cormorant Garamond', serif;
+        font-size: 1.3rem;
+        color: #2c3e50;
+        margin-bottom: 15px;
+    }
+    
+    .option {
+        display: flex;
+        align-items: flex-start;
+        margin-bottom: 10px;
+    }
+    
+    .option:last-child {
+        margin-bottom: 0;
+    }
+    
+    .option-icon {
+        width: 22px;
+        height: 22px;
+        min-width: 22px;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 0.65rem;
+        margin-right: 10px;
+        margin-top: 1px;
+    }
+    
+    .recommended {
+        background: #27ae60;
+        color: white;
+    }
+    
+    .possible {
+        background: #f39c12;
+        color: white;
+    }
+    
+    .option-text {
+        font-size: 0.9rem;
+        color: #555;
+        line-height: 1.5;
+    }
+    
+    .option-text strong {
+        color: #2c3e50;
+    }
+    
+    .phase {
+        margin-bottom: 30px;
+    }
+    
+    .phase-header {
+        display: flex;
+        align-items: center;
+        flex-wrap: wrap;
+        gap: 10px;
+        margin-bottom: 15px;
+    }
+    
+    .phase-badge {
+        display: inline-flex;
+        align-items: center;
+        gap: 5px;
+        padding: 6px 12px;
+        border-radius: 20px;
+        font-size: 0.75rem;
+        font-weight: 500;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+        white-space: nowrap;
+    }
+    
+    .lahore-badge {
+        background: #fdf2e9;
+        color: #d35400;
+    }
+    
+    .karachi-badge {
+        background: #e8f4f8;
+        color: #2980b9;
+    }
+    
+    .phase-title {
+        font-family: 'Cormorant Garamond', serif;
+        font-size: 1.25rem;
+        color: #2c3e50;
+    }
+    
+    .timeline {
+        position: relative;
+        padding-left: 25px;
+        margin-left: 8px;
+    }
+    
+    .timeline::before {
+        content: '';
+        position: absolute;
+        left: 0;
+        top: 8px;
+        bottom: 8px;
+        width: 2px;
+        background: linear-gradient(to bottom, #c9a86c, #2c3e50);
+    }
+    
+    .event {
+        position: relative;
+        margin-bottom: 18px;
+        padding-bottom: 18px;
+        border-bottom: 1px solid #eee;
+    }
+    
+    .event:last-child {
+        margin-bottom: 0;
+        padding-bottom: 0;
+        border-bottom: none;
+    }
+    
+    .event::before {
+        content: '';
+        position: absolute;
+        left: -29px;
+        top: 6px;
+        width: 12px;
+        height: 12px;
+        border-radius: 50%;
+        background: white;
+        border: 3px solid #c9a86c;
+    }
+    
+    .event.main::before {
+        background: #c9a86c;
+        width: 14px;
+        height: 14px;
+        left: -30px;
+        top: 5px;
+    }
+    
+    .event-date {
+        font-size: 0.75rem;
+        color: #888;
+        text-transform: uppercase;
+        letter-spacing: 1.5px;
+        margin-bottom: 4px;
+    }
+    
+    .event-title-row {
+        display: flex;
+        align-items: center;
+        flex-wrap: wrap;
+        gap: 8px;
+        margin-bottom: 4px;
+    }
+    
+    .event-title {
+        font-family: 'Cormorant Garamond', serif;
+        font-size: 1.3rem;
+        color: #2c3e50;
+    }
+    
+    .main-event-tag {
+        display: inline-block;
+        background: linear-gradient(135deg, #c9a86c, #b8956a);
+        color: white;
+        font-size: 0.6rem;
+        padding: 3px 8px;
+        border-radius: 10px;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+        font-family: 'Montserrat', sans-serif;
+    }
+    
+    .event-description {
+        font-size: 0.85rem;
+        color: #666;
+        line-height: 1.5;
+    }
+    
+    .suggestions {
+        background: #fafafa;
+        border-radius: 8px;
+        padding: 12px;
+        margin-top: 10px;
+    }
+    
+    .suggestions-title {
+        font-size: 0.7rem;
+        color: #999;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        margin-bottom: 8px;
+    }
+    
+    .suggestion-list {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 6px;
+    }
+    
+    .suggestion-tag {
+        background: white;
+        border: 1px solid #ddd;
+        padding: 4px 10px;
+        border-radius: 15px;
+        font-size: 0.75rem;
+        color: #555;
+        white-space: nowrap;
+    }
+    
+    .highlight-box {
+        background: linear-gradient(135deg, #fff9e6 0%, #fff3cc 100%);
+        border: 1px solid #f0d77c;
+        border-radius: 8px;
+        padding: 12px;
+        margin-top: 10px;
+    }
+    
+    .highlight-box .title {
+        font-weight: 500;
+        color: #8b7355;
+        font-size: 0.8rem;
+        margin-bottom: 4px;
+    }
+    
+    .highlight-box .text {
+        font-size: 0.8rem;
+        color: #666;
+        line-height: 1.4;
+    }
+    
+    .divider {
+        height: 1px;
+        background: linear-gradient(to right, transparent, #ddd, transparent);
+        margin: 25px 0;
+    }
+    
+    .quick-ref {
+        background: #2c3e50;
+        color: white;
+        padding: 20px;
+        margin: 0 30px 25px;
+        border-radius: 10px;
+    }
+    
+    .quick-ref h3 {
+        font-family: 'Cormorant Garamond', serif;
+        font-size: 1.1rem;
+        margin-bottom: 15px;
+        font-weight: 400;
+    }
+    
+    .quick-ref-list {
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+    }
+    
+    .quick-ref-item {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 8px 10px;
+        background: rgba(255,255,255,0.05);
+        border-radius: 6px;
+        font-size: 0.85rem;
+    }
+    
+    .quick-ref-item.main-event {
+        background: rgba(201, 168, 108, 0.25);
+    }
+    
+    .quick-ref-item .event-name {
+        font-weight: 500;
+    }
+    
+    .quick-ref-item .event-info {
+        opacity: 0.8;
+        font-size: 0.8rem;
+    }
+    
+    .footer {
+        background: #f8f9fa;
+        padding: 25px 30px;
+        text-align: center;
+    }
+    
+    .footer p {
+        font-size: 0.9rem;
+        color: #888;
+        margin-bottom: 12px;
+    }
+    
+    .legend {
+        display: flex;
+        justify-content: center;
+        gap: 25px;
+    }
+    
+    .legend-item {
+        display: flex;
+        align-items: center;
+        gap: 6px;
+        font-size: 0.8rem;
+        color: #666;
+    }
+    
+    .legend-dot {
+        width: 10px;
+        height: 10px;
+        border-radius: 50%;
+    }
+    
+    .legend-dot.karachi-dot {
+        background: #2980b9;
+    }
+    
+    .legend-dot.lahore-dot {
+        background: #d35400;
+    }
+    
+    @media (max-width: 500px) {
+        .header h1 {
+            font-size: 2rem;
+        }
+        
+        .content {
+            padding: 20px;
+        }
+        
+        .quick-ref {
+            margin: 0 20px 20px;
+        }
+        
+        .suggestion-list {
+            gap: 5px;
+        }
+        
+        .suggestion-tag {
+            font-size: 0.7rem;
+            padding: 3px 8px;
+        }
+    }
+</style>
+```
+
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>Wedding Celebration</h1>
+            <div class="date">November 21–30, 2026</div>
+        </div>
+
+```
+    <div class="content">
+        <div class="arrival-options">
+            <h2>✈️ Arrival Options</h2>
+            <div class="option">
+                <div class="option-icon recommended">✓</div>
+                <div class="option-text">
+                    <strong>Fly to Lahore by Nov 21</strong> -- Recommended! Enjoy sightseeing, dinners & quality time
+                </div>
+            </div>
+            <div class="option">
+                <div class="option-icon possible">→</div>
+                <div class="option-text">
+                    <strong>Fly to Karachi by Nov 24</strong> -- Join for all main wedding events
+                </div>
+            </div>
+        </div>
+        
+        <!-- LAHORE PRE-WEDDING -->
+        <div class="phase">
+            <div class="phase-header">
+                <span class="phase-badge lahore-badge">📍 Lahore</span>
+                <span class="phase-title">Pre-Wedding Celebrations</span>
+            </div>
+            
+            <div class="timeline">
+                <div class="event">
+                    <div class="event-date">Sat, November 21</div>
+                    <div class="event-title-row">
+                        <span class="event-title">Arrival & Welcome Dinner</span>
+                    </div>
+                    <div class="event-description">Settle in and join us for dinner</div>
+                    <div class="highlight-box">
+                        <div class="title">🍽️ Dinner Suggestion</div>
+                        <div class="text">Spice Bazaar or Monal -- rooftop dining with city views</div>
+                    </div>
+                </div>
+                
+                <div class="event">
+                    <div class="event-date">Sun, November 22</div>
+                    <div class="event-title-row">
+                        <span class="event-title">Old Lahore Sightseeing</span>
+                    </div>
+                    <div class="event-description">Explore the Walled City & Mughal heritage</div>
+                    <div class="suggestions">
+                        <div class="suggestions-title">Must-See Spots</div>
+                        <div class="suggestion-list">
+                            <span class="suggestion-tag">🕌 Badshahi Mosque</span>
+                            <span class="suggestion-tag">🏰 Lahore Fort</span>
+                            <span class="suggestion-tag">🛁 Shahi Hammam</span>
+                            <span class="suggestion-tag">🎨 Wazir Khan Mosque</span>
+                        </div>
+                    </div>
+                    <div class="highlight-box">
+                        <div class="title">🌅 Evening Plan</div>
+                        <div class="text">Sunset at Badshahi Mosque → Rooftop dinner at Haveli, Cooco's Den or Andaaz</div>
+                    </div>
+                </div>
+                
+                <div class="event">
+                    <div class="event-date">Mon, November 23</div>
+                    <div class="event-title-row">
+                        <span class="event-title">Explore Lahore</span>
+                    </div>
+                    <div class="event-description">More sightseeing before travel</div>
+                    <div class="suggestions">
+                        <div class="suggestions-title">Options</div>
+                        <div class="suggestion-list">
+                            <span class="suggestion-tag">🇵🇰 Wagah Border</span>
+                            <span class="suggestion-tag">🌳 Shalimar Gardens</span>
+                            <span class="suggestion-tag">🛍️ Anarkali Bazaar</span>
+                            <span class="suggestion-tag">🏛️ Lahore Museum</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="event">
+                    <div class="event-date">Tue, November 24</div>
+                    <div class="event-title-row">
+                        <span class="event-title">Travel to Karachi</span>
+                    </div>
+                    <div class="event-description">Fly to Karachi & settle in</div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="divider"></div>
+        
+        <!-- KARACHI EVENTS -->
+        <div class="phase">
+            <div class="phase-header">
+                <span class="phase-badge karachi-badge">📍 Karachi</span>
+                <span class="phase-title">Wedding Events</span>
+            </div>
+            
+            <div class="timeline">
+                <div class="event main">
+                    <div class="event-date">Wed, November 25</div>
+                    <div class="event-title-row">
+                        <span class="event-title">Nikkah</span>
+                        <span class="main-event-tag">Main Event</span>
+                    </div>
+                    <div class="event-description">The wedding ceremony</div>
+                </div>
+                
+                <div class="event main">
+                    <div class="event-date">Thu, November 26</div>
+                    <div class="event-title-row">
+                        <span class="event-title">Reception</span>
+                        <span class="main-event-tag">Main Event</span>
+                    </div>
+                    <div class="event-description">Evening celebration</div>
+                </div>
+                
+                <div class="event">
+                    <div class="event-date">Fri, November 27</div>
+                    <div class="event-title-row">
+                        <span class="event-title">Beach Party</span>
+                    </div>
+                    <div class="event-description">Relax and celebrate by the sea</div>
+                </div>
+                
+                <div class="event">
+                    <div class="event-date">Sat, November 28</div>
+                    <div class="event-title-row">
+                        <span class="event-title">Travel to Lahore</span>
+                    </div>
+                    <div class="event-description">Return to Lahore for final celebration</div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="divider"></div>
+        
+        <!-- LAHORE FINALE -->
+        <div class="phase">
+            <div class="phase-header">
+                <span class="phase-badge lahore-badge">📍 Lahore</span>
+                <span class="phase-title">Grand Finale</span>
+            </div>
+            
+            <div class="timeline">
+                <div class="event main">
+                    <div class="event-date">Sun, November 29</div>
+                    <div class="event-title-row">
+                        <span class="event-title">Walima</span>
+                        <span class="main-event-tag">Main Event</span>
+                    </div>
+                    <div class="event-description">Final wedding celebration</div>
+                </div>
+                
+                <div class="event">
+                    <div class="event-date">Mon Nov 30 – Tue Dec 1</div>
+                    <div class="event-title-row">
+                        <span class="event-title">Departure</span>
+                    </div>
+                    <div class="event-description">Fly home on Nov 30 or Dec 1 -- safe travels!</div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="quick-ref">
+        <h3>🎊 Main Events</h3>
+        <div class="quick-ref-list">
+            <div class="quick-ref-item main-event">
+                <span class="event-name">Nikkah</span>
+                <span class="event-info">Nov 25 · Karachi</span>
+            </div>
+            <div class="quick-ref-item main-event">
+                <span class="event-name">Reception</span>
+                <span class="event-info">Nov 26 · Karachi</span>
+            </div>
+            <div class="quick-ref-item">
+                <span class="event-name">Beach Party</span>
+                <span class="event-info">Nov 27 · Karachi</span>
+            </div>
+            <div class="quick-ref-item main-event">
+                <span class="event-name">Walima</span>
+                <span class="event-info">Nov 29 · Lahore</span>
+            </div>
+        </div>
+    </div>
+    
+    <div class="footer">
+        <p>We can't wait to celebrate with you!</p>
+        <div class="legend">
+            <div class="legend-item">
+                <div class="legend-dot lahore-dot"></div>
+                <span>Lahore</span>
+            </div>
+            <div class="legend-item">
+                <div class="legend-dot karachi-dot"></div>
+                <span>Karachi</span>
+            </div>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>
